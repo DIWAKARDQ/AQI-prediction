@@ -1,4 +1,4 @@
-# Air Quality Predictor 🌤️🌲
+# Air Quality Predictor 
 
 [![Live Demo](https://img.shields.io/badge/Live_Demo-aqi--prediction--s8m7.onrender.com-success?style=for-the-badge)](https://aqi-prediction-s8m7.onrender.com)
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
@@ -9,7 +9,7 @@ An advanced, ML-powered web application designed to predict the Air Quality Inde
 
 ---
 
-## 🌟 Key Features
+##  Key Features
 
 - **Real-Time AQI Prediction:** Input city, season, pollutant levels (PM2.5, PM10, CO, NO2, SO2, O3, Dust), and environmental factors (Humidity, Wind, Pressure, Cloud Cover) to instantly predict the AQI.
 - **Advanced Machine Learning:** Powered by a highly optimized **Random Forest Regressor** trained on a massive real-world dataset.
@@ -23,9 +23,9 @@ An advanced, ML-powered web application designed to predict the Air Quality Inde
 
 ---
 
-## 🧠 The Algorithm (Machine Learning)
+##  The Algorithm (Machine Learning)
 
-### 🌲 Random Forest Regressor
+###  Random Forest Regressor
 The backend relies exclusively on a **Random Forest Regressor** from `scikit-learn` to process input features and generate an AQI score.
 
 #### **Model Configuration:**
@@ -38,7 +38,7 @@ Instead of computing heavy dataframe aggregations dynamically via API endpoints,
 
 ---
 
-## 🛠️ Tech Stack & Architecture
+##  Tech Stack & Architecture
 
 - **Backend:** Python, Flask, Pandas, NumPy, Scikit-Learn, Joblib
 - **Frontend:** HTML5, Vanilla JavaScript (ES6), Custom Vanilla CSS.
@@ -47,7 +47,7 @@ Instead of computing heavy dataframe aggregations dynamically via API endpoints,
 
 ---
 
-## 🚀 Getting Started & Installation
+##  Getting Started & Installation
 
 ### Prerequisites
 Make sure you have Python 3.8+ installed on your system.
@@ -84,7 +84,7 @@ Make sure you have Python 3.8+ installed on your system.
 
 ---
 
-## 🐛 Common Errors & Troubleshooting
+##  Common Errors & Troubleshooting
 
 - **`ModuleNotFoundError: No module named 'X'`**
   - **The Fix:** Ensure you have activated your virtual environment (if using one) and successfully ran `pip install -r requirements.txt`.
@@ -109,4 +109,4 @@ Experience the live dashboard and predictive model here:
 
 ---
 
-*Built with ❤️ for ML Mini Project.*
+*Built by Diwakar B.*
