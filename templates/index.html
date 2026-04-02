@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Air Quality Predictor — ML-Powered Pollution Forecasting</title>
+  <meta name="description" content="Predict Air Quality Index using a Random Forest ML model. Real-time AQI predictions with health advice and analytics dashboard." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+  <canvas id="particleCanvas"></canvas>
+
+  <header id="site-header">
+    <h1 id="main-title">Air Quality Predictor</h1>
+    <p id="subtitle">ML-Powered Pollution Forecasting</p>
+  </header>
+
+  <main id="app-main">
+
+    <!-- ── Model Info Bar ── -->
+    <section class="glass-card" id="model-info-card">
+      <h2 class="section-title">🌲 Random Forest Model</h2>
+      <div id="model-metrics-bar">
+        <div class="metric-pill"><span class="metric-label">R²</span><span class="metric-value" id="metric-r2">—</span></div>
+        <div class="metric-pill"><span class="metric-label">MAE</span><span class="metric-value" id="metric-mae">—</span></div>
+        <div class="metric-pill"><span class="metric-label">RMSE</span><span class="metric-value" id="metric-rmse">—</span></div>
+        <div class="metric-pill"><span class="metric-label">Trees</span><span class="metric-value">200</span></div>
+      </div>
+    </section>
+
+    <!-- ── Input Form ── -->
+    <section class="glass-card" id="input-form-card">
+      <h2 class="section-title">Pollutant & Environment Inputs</h2>
+      <div id="input-mode-toggle">
+        <button class="mode-btn active" data-mode="sliders" id="btn-slider-mode">🎚️ Sliders</button>
+        <button class="mode-btn" data-mode="numbers" id="btn-number-mode">🔢 Numbers</button>
+      </div>
+      <form id="predict-form" autocomplete="off">
+        <div class="form-row">
+          <div class="form-group" id="city-group">
+            <label for="city-select">City</label>
+            <select id="city-select" required><option value="">Loading cities…</option></select>
+          </div>
+          <div class="form-group" id="month-group">
+            <label for="month-slider">Month: <span id="month-name">January</span></label>
+            <div class="input-duo">
+              <input type="range" id="month-slider" min="1" max="12" value="1" class="duo-slider" />
+              <input type="number" id="month-number" min="1" max="12" value="1" class="duo-number" />
+            </div>
+          </div>
+        </div>
+        <div class="slider-grid" id="pollutant-sliders"></div>
+        <h3 class="subsection-title">Weather Conditions</h3>
+        <div class="slider-grid" id="weather-sliders"></div>
+        <button type="submit" id="predict-btn">
+          <span class="btn-text">Predict AQI</span>
+          <span class="btn-loader" hidden></span>
+        </button>
+      </form>
+    </section>
+
+    <!-- ── Result ── -->
+    <section class="glass-card hidden" id="result-card">
+      <h2 class="section-title">Prediction Result</h2>
+      <div id="result-body">
+        <div id="gauge-wrap">
+          <svg id="aqi-gauge" viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#00e400" /><stop offset="20%" stop-color="#ffff00" />
+                <stop offset="40%" stop-color="#ff7e00" /><stop offset="60%" stop-color="#ff0000" />
+                <stop offset="80%" stop-color="#8f3f97" /><stop offset="100%" stop-color="#7e0023" />
+              </linearGradient>
+            </defs>
+            <path id="gauge-bg" d="M 20 120 A 80 80 0 0 1 180 120" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="14" stroke-linecap="round" />
+            <path id="gauge-fill" d="M 20 120 A 80 80 0 0 1 180 120" fill="none" stroke="url(#gaugeGrad)" stroke-width="14" stroke-linecap="round" stroke-dasharray="0, 999" />
+            <line id="gauge-needle" x1="100" y1="120" x2="100" y2="45" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" />
+            <circle cx="100" cy="120" r="5" fill="#38bdf8" />
+          </svg>
+        </div>
+        <div id="aqi-number-wrap">
+          <span id="aqi-number">0</span><span id="aqi-label">AQI</span>
+        </div>
+        <span id="aqi-category-badge">—</span>
+        <p id="health-advice">—</p>
+        <div id="comparison-bar-wrap">
+          <div id="comparison-bar"><div id="comparison-marker"></div></div>
+          <div class="bar-labels"><span>0</span><span>50</span><span>100</span><span>150</span><span>200</span><span>300</span><span>500</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── History ── -->
+    <section class="glass-card" id="history-card">
+      <h2 class="section-title">Prediction History</h2>
+      <div id="history-list"><p class="empty-history">No predictions yet.</p></div>
+    </section>
+    <!-- ── AQI Info ── -->
+    <section class="glass-card" id="info-card">
+      <h2 class="section-title">AQI Scale Reference</h2>
+      <div id="aqi-scale-bar">
+        <div class="scale-segment" style="background:#00e400" data-tip="0-50: Air quality is satisfactory.">Good</div>
+        <div class="scale-segment" style="background:#ffff00;color:#333" data-tip="51-100: Acceptable; sensitive individuals may be affected.">Moderate</div>
+        <div class="scale-segment" style="background:#ff7e00" data-tip="101-150: Sensitive groups may experience health effects.">USG</div>
+        <div class="scale-segment" style="background:#ff0000" data-tip="151-200: Everyone may experience health effects.">Unhealthy</div>
+        <div class="scale-segment" style="background:#8f3f97" data-tip="201-300: Health alert for everyone.">Very Unhealthy</div>
+        <div class="scale-segment" style="background:#7e0023" data-tip="301-500: Emergency conditions.">Hazardous</div>
+      </div>
+      <p id="scale-tooltip" class="scale-tooltip-text"></p>
+    </section>
+  </main>
+
+  <div id="error-toast" class="hidden">
+    <span id="error-msg"></span>
+    <button id="error-close">&times;</button>
+  </div>
+
+
+  <script src="/static/script.js"></script>
+</body>
+</html>

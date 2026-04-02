@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+env/
+.env
+
+# Large model files - GitHub restricts files > 100MB. 
+# rf_model.pkl is 1.86GB and will cause git push to fail.
+rf_model.pkl
+
+# Large datasets
+dataset/aqi_india_38cols_knn_final.csv
