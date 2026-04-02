@@ -19,9 +19,9 @@
     "PM_Ratio"
   ],
   "random_forest": {
-    "mae": 9.5663,
-    "rmse": 14.1316,
-    "r2": 0.9103
+    "mae": 11.3295,
+    "rmse": 16.0232,
+    "r2": 0.8847
   },
   "analytics": {
     "city_aqi": {
@@ -113,23 +113,23 @@
       ]
     },
     "feature_importance": {
-      "PM2.5": 0.7642,
-      "O3": 0.0473,
-      "PM10": 0.0337,
-      "NO2": 0.0211,
-      "SO2": 0.0157,
-      "DewPoint": 0.0149,
-      "City_enc": 0.0143,
-      "CO": 0.0137,
-      "Pressure": 0.0131,
-      "PM_Ratio": 0.0123,
-      "Humidity": 0.012,
-      "Wind": 0.011,
-      "Month": 0.0083,
-      "Dust": 0.008,
-      "Cloud": 0.0063,
-      "Season": 0.0024,
-      "Precipitation": 0.0017
+      "PM2.5": 0.8342,
+      "O3": 0.0458,
+      "PM10": 0.0316,
+      "NO2": 0.0154,
+      "City_enc": 0.0104,
+      "SO2": 0.0091,
+      "DewPoint": 0.0082,
+      "CO": 0.0069,
+      "Humidity": 0.0065,
+      "PM_Ratio": 0.0064,
+      "Pressure": 0.0062,
+      "Month": 0.0057,
+      "Wind": 0.0049,
+      "Dust": 0.004,
+      "Cloud": 0.0027,
+      "Season": 0.0015,
+      "Precipitation": 0.0005
     }
   }
 }

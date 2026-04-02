@@ -218,7 +218,7 @@ def train_model(df, le):
 
     # ========== Random Forest ==========
     print("\n🌲 Training Random Forest Regressor ...")
-    rf = RandomForestRegressor(n_estimators=200, random_state=42, n_jobs=-1)
+    rf = RandomForestRegressor(n_estimators=30, max_depth=15, min_samples_leaf=2, random_state=42, n_jobs=-1)
     rf.fit(X_train, y_train)
     rf_pred = rf.predict(X_test)
 
